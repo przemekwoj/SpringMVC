@@ -1,13 +1,15 @@
 package org.przemo.controller;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-
-
-
+@Entity
 public class User 
 {	
-
-	
+	@Id
+	@GeneratedValue
+	private long userId;
 	private String name;
 	private String surname;
 	private String email;
