@@ -11,7 +11,14 @@
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">  
 	
 	<context:component-scan base-package="org.przemo.controller" />
-	<context:component-scan base-package="org.przemo.user" />
+	<context:component-scan base-package="org.przemo.database" />
+	<context:component-scan base-package="org.przemo.dao" />
+	<context:component-scan base-package="org.przemo.dao.impl" />
+	<context:component-scan base-package="org.przemo.service" />
+	<context:component-scan base-package="org.przemo.service.impl" />
+			
+		
+	
 
 	<mvc:annotation-driven/>
 	
@@ -39,7 +46,7 @@
 		<property name="dataSource" ref="dataSource"/>
 		<property name="annotatedClasses">	
 			<list>
-				<value>org.przemo.controller.User</value>
+				<value>org.przemo.database.User</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

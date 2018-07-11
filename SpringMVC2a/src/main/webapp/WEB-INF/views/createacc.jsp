@@ -7,6 +7,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-	create acc
+	<form action="/SpringMVC2a/createacc" method="post">
+	<center>
+		name: <input type="text" name="name">
+		<br>
+		surname: <input type="text" name="surname">
+		<br>
+		email: <input type="text" name="email">
+		<br>
+		phone : <input type="text" name="phone">
+		<br>
+		<input type="submit"  name="createaccount" value="creat account" >
+		<br>
+		${info}
+	</center>
+	</form>
 </body>
 </html>
