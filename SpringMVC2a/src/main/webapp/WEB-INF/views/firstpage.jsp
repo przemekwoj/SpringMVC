@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	firstpage  ${name}
+	firstpage  
 </body>
 </html>

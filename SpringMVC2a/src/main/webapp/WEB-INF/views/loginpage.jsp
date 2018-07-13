@@ -18,6 +18,8 @@
 		
 		<input type="submit"  name="createaccount" value="creat account" >
 		<input type="submit"  name="login" value="login">
+		<br>
+		${info}
 	</center>
 	</form>
 	
