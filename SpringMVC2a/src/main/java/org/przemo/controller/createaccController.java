@@ -30,7 +30,6 @@ public class createaccController
 			if(user.checknull() == false)
 			{
 				map.addAttribute("info","You have missed pool to fill");
-				System.out.println("chcknull");
 				page="createacc";
 				toCreateAcc = false;
 				break;
@@ -38,7 +37,6 @@ public class createaccController
 			if(user.getEmail().equals(u.getEmail()))
 			{
 				map.addAttribute("info","This email is already exist, please try diffrent email");
-				System.out.println("dugi if");
 				page="createacc";
 				toCreateAcc = false;
 				break;

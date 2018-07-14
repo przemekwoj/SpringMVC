@@ -6,8 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import org.przemo.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.przemo.service.UserService;
+//import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 public class User 
@@ -22,6 +22,9 @@ public class User
 	private String phone;
 	
 	
+	public long getuserId() {
+		return userId;
+	}
 	public String getName() {
 		return name;
 	}
@@ -69,14 +72,14 @@ public class User
 	
 	public boolean checklogin(List<User> list, String n,String s, String e)
 	{
-	
-		
 		boolean checked = false;
+		System.out.println("here1");
 		for(User u :list)
 		{
 			if(u.getEmail().equals(e) & u.getName().equals(n) & u.getSurname().equals(s))
 			{
-				checked= true;;
+				checked= true;
+				break;
 			}
 		}
 		return checked;	

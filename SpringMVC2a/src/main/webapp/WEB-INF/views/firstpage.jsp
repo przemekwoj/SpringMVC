@@ -7,6 +7,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-	firstpage  
+	<form action="/SpringMVC2a/addInscription" method="Post">
+	<center>
+		blog na dowolny temat
+		<br>
+		Welcome :)
+		<br>
+		<textarea rows="10" cols="40" name="content"></textarea>
+		<input type="submit" value="edit" name="edit">
+	</center>
+	</form>
 </body>
 </html>

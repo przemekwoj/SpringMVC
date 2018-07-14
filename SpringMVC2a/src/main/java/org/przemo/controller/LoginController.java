@@ -11,9 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
 
 @Controller
+@SessionAttributes(value = {"name","surname","email"})
 public class LoginController 
 {
 	@Autowired
@@ -37,11 +39,16 @@ public class LoginController
 			@RequestParam(value="email") String email,
 			Map<String,Object> map)
 	{
+		
 		String page ="firstpage";
-		List<User> list = userService.getAll();
+		List<User> list = userService.getAll();	
 		boolean checked;
 		User user = new User();
 		checked = user.checklogin(list, name, surname, email);
+		map.put("name",name);
+		map.put("surname",surname);
+		map.put("email",email);
+		System.out.println("5");
 		if(checked == false)
 		{
 			map.put("info", "you used wrong email or password , please try again");
