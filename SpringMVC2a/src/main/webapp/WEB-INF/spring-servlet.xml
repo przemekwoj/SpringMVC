@@ -16,12 +16,8 @@
 	<context:component-scan base-package="org.przemo.dao.impl" />
 	<context:component-scan base-package="org.przemo.service" />
 	<context:component-scan base-package="org.przemo.service.impl" />
-			
 		
-	
 
-	<mvc:annotation-driven/>
-	
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
@@ -32,6 +28,10 @@
 		</property>
 	</bean>
 	
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+    
+    <mvc:annotation-driven/>
+    
 	<context:property-placeholder location="classpath:database.properties"/>
 	
 	<bean id="dataSource"

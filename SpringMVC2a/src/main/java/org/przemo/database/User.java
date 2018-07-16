@@ -72,16 +72,27 @@ public class User
 	
 	public boolean checklogin(List<User> list, String n,String s, String e)
 	{
+		System.out.println(n);
+		System.out.println(s);
+		System.out.println(e);
+		System.out.println(list.size());
+
 		boolean checked = false;
-		System.out.println("here1");
+		System.out.println("iam here0:)");
+
 		for(User u :list)
 		{
-			if(u.getEmail().equals(e) & u.getName().equals(n) & u.getSurname().equals(s))
+			System.out.println("iam here:)");
+			System.out.println(u.getEmail()+" "+u.getName()+" "+u.getSurname());
+			System.out.println(u.getEmail().equals(e)+" "+u.getName().equals(n)+" "+u.getSurname().equals(s));
+			if(u.getEmail().equals(e)& u.getName().equals(n) & u.getSurname().equals(s))
 			{
+				System.out.println("iam here7:)");
 				checked= true;
 				break;
 			}
 		}
+		System.out.println("iam here3:)");
 		return checked;	
 	}
 	

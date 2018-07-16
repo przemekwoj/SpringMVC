@@ -15,6 +15,12 @@ public class PostClass
 	private long userId;
 	private	String content;
 	
+	public PostClass() 
+	{
+		postId =0;
+		userId =0;
+		content = "iam in default Post   cass constructor";
+	}
 	public PostClass( long userId, String content) {
 		super();
 		this.userId = userId;

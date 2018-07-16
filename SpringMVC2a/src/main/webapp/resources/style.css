@@ -1,0 +1,12 @@
+
+h2
+{
+	color:red;
+}
+.leftbox
+{
+	float:left;
+	text-align: left;
+	height: 100px;
+    width: 500px;
+}

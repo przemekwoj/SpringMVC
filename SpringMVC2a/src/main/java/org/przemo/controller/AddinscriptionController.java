@@ -1,5 +1,6 @@
 package org.przemo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,12 +28,12 @@ public class AddinscriptionController
 	@RequestMapping(value="/addInscription" ,method=RequestMethod.POST)
 	public String log(@RequestParam(value = "content") String content,Map<String,Object> map)
 	{
-		System.out.println("iam here000000000000000000000");
 		long userId = 0;
 		String email = map.get("email").toString();
 		////pobieranie Id usera
 		List<User> list = userService.getAll();
-		System.out.println("iam here00000000000000000000aaaaaaaaaaaaaa0");
+		List<String> postlist = new ArrayList<String>();
+		User user = new User();
 		for(User u: list)
 		{
 			if(email.equals(u.getEmail()))
@@ -42,14 +43,22 @@ public class AddinscriptionController
 			}
 		}
 		//tworzenie posta w bazie danych
-		PostClass post = new PostClass(4,content);
-		System.out.println(userId);
-		System.out.println(content);
-		System.out.println(email);
-		System.out.println("iam here111111");
+		PostClass post = new PostClass(userId,content);
 		postclassDao.create(post);
-		System.out.println("iam here222222");
+		///pobieranie postow
+		List<PostClass> l = postclassDao.getAll();
+		for(PostClass p : l)
+		{
+			//user = userService.find((long)15);
+			//System.out.println(p.getUserId());
+			//System.out.println(user.getEmail());
+			//System.out.println(user.getuserId());
+			//System.out.println("wytyfyy");
 
+			user = userService.find(p.getUserId());
+			postlist.add(userService.find(p.getUserId()).getEmail() +":   "+p.getContent());
+		}
+		map.put("lists", postlist);
 		return "firstpage";
 	}
 }
