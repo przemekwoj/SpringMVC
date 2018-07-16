@@ -1,10 +1,8 @@
 package org.przemo.controller;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.przemo.dao.PostClassDao;
 import org.przemo.database.Forum;
 import org.przemo.database.PostClass;
 import org.przemo.database.User;
@@ -13,15 +11,17 @@ import org.przemo.service.PostClassService;
 import org.przemo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @SessionAttributes(value = {"name","surname","email","namepage","subject"})
-public class AddinscriptionController
-{				
+public class ForumController 
+{
 	@Autowired
 	PostClassService postclassDao;
 	@Autowired
@@ -29,27 +29,14 @@ public class AddinscriptionController
 	@Autowired
 	ForumService forumDao;
 	
-	@RequestMapping(value="/addInscription" ,method=RequestMethod.POST)
-	public String log(@RequestParam(value = "content") String content,Map<String,Object> map)
+	@RequestMapping(value="/forum/{argument}",method=RequestMethod.GET)
+	public String returnpage(@PathVariable("argument") String argument,Map<String,Object> map)
 	{
-		long userId = 0;
-		String email = map.get("email").toString();
-		////pobieranie Id usera
-		List<User> list = userService.getAll();
-		List<String> postlist = new ArrayList<String>();
-		for(User u: list)
-		{
-			if(email.equals(u.getEmail()))
-			{
-				userId = u.getuserId();
-				break;
-			}
-		}
-		//tworzenie posta w bazie danych
-		PostClass post = new PostClass(userId,content,(String)map.get("namepage"));
-		postclassDao.create(post);
-		///pobieranie postow
+		System.out.println(argument);
+		map.put("namepage",argument);
+		map.put("subject", argument);
 		List<PostClass> l = postclassDao.getAll();
+		List<String> postlist = new ArrayList<String>();
 		for(PostClass p : l)
 		{
 			if(((String)map.get("namepage")).equals(p.getForumname()))
@@ -59,7 +46,7 @@ public class AddinscriptionController
 		}
 		map.put("lists", postlist);
 		map.put("lists2", addforum(map));
-		return "firstpage";
+	    return "firstpage";
 	}
 	
 	public List<String> addforum(Map<String,Object> map)

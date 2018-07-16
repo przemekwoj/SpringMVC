@@ -48,6 +48,7 @@
 			<list>
 				<value>org.przemo.database.User</value>
 				<value>org.przemo.database.PostClass</value>
+				<value>org.przemo.database.Forum</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

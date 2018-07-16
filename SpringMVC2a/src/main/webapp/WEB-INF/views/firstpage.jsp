@@ -14,15 +14,20 @@
 	<form action="/SpringMVC2a/addInscription" method="Post">
 	<center>
 	
-		<h2>blog na dowolny temat</h2>
+		<h2>blog na  temat</h2>
 		<br>
-		<h2>Welcome :)</h2>
+		<h2>${subject}</h2>
 	<div class="leftbox">
-		filmweb
 		<br>
-		<a target="_blank" href="youtube">youtube</a>
+		<a target="_blank" href="${pageContext.request.contextPath}/youtube">youtube</a>
 		<br>
-		welcomepage
+		<c:if test="${not empty lists2}">
+			<c:url var="forum" value="forum"/>
+    		<c:forEach items="${lists2}" var="lists2">
+       		<a href="${pageContext.request.contextPath}/${forum}/${lists2}">${lists2}</a>
+       		<br>
+			</c:forEach>
+		</c:if>
 	</div>
 	<div class="leftbox">
 		<br>
@@ -34,7 +39,7 @@
 		</c:if>
 		<br>
 		<textarea rows="10" cols="40" name="content"></textarea>
-		<input type="submit" value="edit" name="edit">
+		<input type="submit" value="edit" name="edit" >
 	</div>
 	</center>
 	</form>
