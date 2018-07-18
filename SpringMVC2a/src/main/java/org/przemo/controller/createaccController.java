@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 
 @Controller
-@SessionAttributes(value = {"name","surname","email","subject"})
+@SessionAttributes(value = {"name","surname","email","subject","namepage"})
 public class createaccController 
 {
 	@Autowired
@@ -59,6 +59,7 @@ public class createaccController
 			map.put("surname", user.getSurname());
 			map.put("email", user.getEmail());
 			map.put("subject", "welcome");
+			map.put("namepage", "firstpage");
 			List<String> lists2 = new ArrayList();
 			lists2 = addforum(map);
 			map.put("lists2", lists2);

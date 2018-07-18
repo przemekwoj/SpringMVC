@@ -52,9 +52,14 @@ public class AddinscriptionController
 		List<PostClass> l = postclassDao.getAll();
 		for(PostClass p : l)
 		{
-			if(((String)map.get("namepage")).equals(p.getForumname()))
+			if(p.getContent()!=null & p.getForumname()!=null)
 			{
-			postlist.add(userService.find(p.getUserId()).getEmail() +":   "+p.getContent());
+				System.out.println(p.getForumname());
+				System.out.println((String)map.get("namepage"));
+				if(((String)map.get("namepage")).equals(p.getForumname()))
+				{
+					postlist.add(userService.find(p.getUserId()).getEmail() +":   "+p.getContent());
+				}
 			}
 		}
 		map.put("lists", postlist);

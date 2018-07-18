@@ -41,6 +41,9 @@
 		<textarea rows="10" cols="40" name="content"></textarea>
 		<input type="submit" value="edit" name="edit" >
 	</div>
+	<div>
+		<input type="submit" value="logout" name="logout" >
+	</div>
 	</center>
 	</form>
 </body>
