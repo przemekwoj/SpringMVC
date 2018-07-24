@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
@@ -65,6 +66,24 @@ public class AddinscriptionController
 		map.put("lists", postlist);
 		map.put("lists2", addforum(map));
 		return "firstpage";
+	}
+	
+	@RequestMapping(value="/looseSearch",method=RequestMethod.GET)
+	public @ResponseBody List<String> ret(Map<String,Object> map)
+	{
+		List<String> postlist = new ArrayList<String>();
+		List<PostClass> l = postclassDao.getAll();
+		for(PostClass p : l)
+		{
+			if(p.getContent()!=null & p.getForumname()!=null)
+			{
+				if(((String)map.get("namepage")).equals(p.getForumname()))
+				{
+					postlist.add(userService.find(p.getUserId()).getEmail() +":   "+p.getContent());
+				}
+			}
+		}
+	    return postlist;
 	}
 	
 	public List<String> addforum(Map<String,Object> map)
