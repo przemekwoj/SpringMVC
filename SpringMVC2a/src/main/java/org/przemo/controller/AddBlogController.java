@@ -1,11 +1,10 @@
 package org.przemo.controller;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.przemo.dao.ForumDao;
+import org.przemo.dao.PostClassDao;
 import org.przemo.database.Forum;
 import org.przemo.database.PostClass;
 import org.przemo.database.User;
@@ -22,56 +21,51 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @SessionAttributes(value = {"name","surname","email","namepage","subject"})
-public class LoginController 
+public class AddBlogController 
 {
-	@Autowired
-	UserService userService;
 	@Autowired
 	PostClassService postclassDao;
 	@Autowired
+	UserService userService;
+	@Autowired
 	ForumService forumDao;
 	
-	@RequestMapping(value="/log" ,method=RequestMethod.GET)
-	public String log()
-	{
-		return "loginpage";
-	}
 	
-	@RequestMapping(value="/firstpage" ,params ="createaccount" ,method=RequestMethod.POST)
-	public String createacc()
-	{
-		return "createacc";
-	}
-	
-	@RequestMapping(value="/firstpage" ,params ="login" ,method=RequestMethod.POST)
-	public String login(@RequestParam(value="name") String name, 
-			@RequestParam(value="surname") String surname,
-			@RequestParam(value="email") String email,
-			Map<String,Object> map)
-	{
+	//dodaje bloga ta funckja
+	@RequestMapping(value="/addblog" ,params="addblog",method=RequestMethod.POST)
+	public String addblog(@RequestParam(value="nameblog") String nameblog,Map<String,Object> map)
+	{	
+		List<Forum> listforum = forumDao.getAll();
+		String page = "firstpage";
 		
-		String page ="firstpage";
-		List<User> list = userService.getAll();	
-		boolean checked;
-		User user = new User();
-		map.put("name",name);
-		map.put("surname",surname);
-		map.put("email",email);
-		map.put("namepage","firstpage");
-		map.put("subject","welcome");
-		checked = user.checklogin(list, name, surname, email);
-		
+		for(Forum f: listforum)
+		{
+			if(f.getNazwa().equals(nameblog))
+			{
+				map.put("info", "this subject is alredy exist, check our page");
+				page = "addForum";
+				break;
+			}
+			else
+			{
+				//ustawia parametry dla bazy danych i tworzy obiekt w bazie danych
+				map.put("subject", nameblog);
+				map.put("namepage", nameblog);
+				Forum forum = new Forum();
+				forum.setLink(nameblog);
+				forum.setNamePage(nameblog);
+				forum.setNazwa(nameblog);
+				forumDao.create(forum);
+				break;
+			}
+		}
+		/// te listy zwracaja co ma wyswielic firstpage.jsp
 		List<String> lists = new ArrayList();
 		List<String> lists2 = new ArrayList();
 		lists = addcontent(map,page);
 		map.put("lists", lists);
 		lists2 = addforum(map);
 		map.put("lists2", lists2);
-		if(checked == false)
-		{
-			map.put("info", "you used wrong email or password , please try again");
-			page = "loginpage";
-		}
 		return page;
 	}
 	
@@ -101,5 +95,4 @@ public class LoginController
 		map.put("lists2", list2);
 		return list2;
 	}
-
 }

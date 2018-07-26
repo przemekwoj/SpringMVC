@@ -29,14 +29,20 @@ public class ForumController
 	@Autowired
 	ForumService forumDao;
 	
+	// funkcja wybiera forum jakie jest wyswietlane aktualnie na stronie
 	@RequestMapping(value="/forum/{argument}",method=RequestMethod.GET)
 	public String returnpage(@PathVariable("argument") String argument,Map<String,Object> map)
 	{
-		System.out.println(argument);
-		map.put("namepage",argument);
-		map.put("subject", argument);
+		// ten if zabezpiecza przed zlym wplywem AJAX , bo asynchdonicznie wywoluje argument looseSearch , co
+		//psuje wsyzstko
+		if(!argument.equals("looseSearch"))
+				{
+				map.put("namepage",argument);
+				map.put("subject", argument);
+				
 		List<PostClass> l = postclassDao.getAll();
 		List<String> postlist = new ArrayList<String>();
+		/// bierze odpowiednie komentarze z bazy danych do danego tematu na forum
 		for(PostClass p : l)
 		{
 			if(((String)map.get("namepage")).equals(p.getForumname()))
@@ -46,6 +52,7 @@ public class ForumController
 		}
 		map.put("lists", postlist);
 		map.put("lists2", addforum(map));
+				}
 	    return "firstpage";
 	}
 	

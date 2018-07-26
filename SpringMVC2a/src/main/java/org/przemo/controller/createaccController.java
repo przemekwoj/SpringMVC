@@ -30,6 +30,7 @@ public class createaccController
 	@Autowired
 	ForumService forumDao;
 	
+	///TWORZENIE KONTA I SPRAWDZANIE CZY ISTNIEJE W BAZIE DANYCH
 	@RequestMapping(value="/createacc" ,method=RequestMethod.POST)
 	public String createUser(User user, ModelMap map)
 	{

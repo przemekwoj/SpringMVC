@@ -30,7 +30,8 @@ public class AddinscriptionController
 	@Autowired
 	ForumService forumDao;
 	
-	@RequestMapping(value="/addInscription" ,method=RequestMethod.POST)
+	///dodaje opinie uzytkownika
+	@RequestMapping(value="/addInscription" ,params="edit",method=RequestMethod.POST)
 	public String log(@RequestParam(value = "content") String content,Map<String,Object> map)
 	{
 		long userId = 0;
@@ -55,8 +56,6 @@ public class AddinscriptionController
 		{
 			if(p.getContent()!=null & p.getForumname()!=null)
 			{
-				System.out.println(p.getForumname());
-				System.out.println((String)map.get("namepage"));
 				if(((String)map.get("namepage")).equals(p.getForumname()))
 				{
 					postlist.add(userService.find(p.getUserId()).getEmail() +":   "+p.getContent());
@@ -67,10 +66,23 @@ public class AddinscriptionController
 		map.put("lists2", addforum(map));
 		return "firstpage";
 	}
-	
+	@RequestMapping(value="/addInscription" ,params="addPost",method=RequestMethod.POST)
+	public String addPost()
+	{
+		return "addForum";
+	}
+	/// metoda AJAX do asynchronicznego wyswietlania dancyh na stronie bez potrzeby jej odswiezania
 	@RequestMapping(value="/looseSearch",method=RequestMethod.GET)
 	public @ResponseBody List<String> ret(Map<String,Object> map)
 	{
+		System.out.println("heeeeeeeeeeeeeeeeeereeeeeee");
+		System.out.println("heeeeeeeeeeeeeeeeeereeeeeee");
+		System.out.println("heeeeeeeeeeeeeeeeeereeeeeee");
+		System.out.println("heeeeeeeeeeeeeeeeeereeeeeee");
+		System.out.println("heeeeeeeeeeeeeeeeeereeeeeee");
+		System.out.println("heeeeeeeeeeeeeeeeeereeeeeee");
+		System.out.println("heeeeeeeeeeeeeeeeeereeeeeee");
+
 		List<String> postlist = new ArrayList<String>();
 		List<PostClass> l = postclassDao.getAll();
 		for(PostClass p : l)
